@@ -9,5 +9,7 @@ namespace NextFlix.Domain.Entities
 		public string IpAddress { get; set; }
 		public VoteType Vote { get; set; }
 		public DateTime VoteDate { get; set; }
+		public virtual Movie Movie { get; set; }
+
 	}
 }

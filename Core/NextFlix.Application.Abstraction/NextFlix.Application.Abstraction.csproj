@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NextFlix.Domain\NextFlix.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

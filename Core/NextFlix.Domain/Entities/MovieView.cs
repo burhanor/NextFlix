@@ -7,5 +7,6 @@ namespace NextFlix.Domain.Entities
 		public int MovieId { get; set; }
 		public string IpAddress { get; set; }
 		public DateTime ViewDate { get; set; }
+		public virtual Movie Movie { get; set; }
 	}
 }

@@ -10,6 +10,7 @@ namespace NextFlix.Domain.Entities
 		public LogType LogType { get; set; }
 		public string TableName { get; set; }
 		public DateTime LogDate { get; set; } = DateTime.UtcNow;
-		public int UserId { get; set; }
+		public int? UserId { get; set; }
+		public virtual User? User { get; set; }
 	}
 }

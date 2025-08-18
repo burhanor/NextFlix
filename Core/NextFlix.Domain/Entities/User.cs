@@ -1,10 +1,5 @@
 ﻿using NextFlix.Domain.Concretes;
 using NextFlix.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NextFlix.Domain.Entities
 {
@@ -18,5 +13,8 @@ namespace NextFlix.Domain.Entities
 		public string Slug { get; set; }
 		public bool IsActive { get; set; }
 		public DateTime CreatedDate { get; set; }
+		public virtual ICollection<Movie> Movies { get; set; } = [];
+		public virtual ICollection<Login> Logins { get; set; } = [];
+		public virtual ICollection<Log> Logs { get; set; } = [];
 	}
 }

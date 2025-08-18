@@ -8,5 +8,6 @@ namespace NextFlix.Domain.Entities
 		public string Title { get; set; }
 		public Status Status { get; set; }
 		public SourceType SourceType { get; set; }
+		public virtual ICollection<MovieSource> MovieSources { get; set; } = [];
 	}
 }

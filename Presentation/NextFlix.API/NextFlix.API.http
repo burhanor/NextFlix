@@ -1,6 +1,6 @@
 @NextFlix.API_HostAddress = http://localhost:5065
 
-GET {{NextFlix.API_HostAddress}}/weatherforecast/
+GET {{NextFlix.API_HostAddress}}/countries/
 Accept: application/json
 
 ###
