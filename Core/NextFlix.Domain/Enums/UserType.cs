@@ -1,0 +1,8 @@
+﻿namespace NextFlix.Domain.Enums
+{
+	public enum UserType
+	{
+		Admin = 1,
+		Member = 2,
+	}
+}
