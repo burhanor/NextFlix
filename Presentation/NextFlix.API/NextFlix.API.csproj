@@ -17,7 +17,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\NextFlix.Application\NextFlix.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\NextFlix.Infrastructure\NextFlix.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\NextFlix.Persistence\NextFlix.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>

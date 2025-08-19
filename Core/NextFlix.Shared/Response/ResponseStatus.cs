@@ -1,6 +1,6 @@
 ﻿namespace NextFlix.Shared.Response
 {
-	public enum Status
+	public enum ResponseStatus
 	{
 		Created,
 		Updated,
@@ -11,6 +11,7 @@
 		Unauthorized,
 		Forbidden,
 		InternalServerError,
-		Failed
+		Failed,
+		Success
 	}
 }

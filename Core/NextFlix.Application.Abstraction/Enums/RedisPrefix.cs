@@ -1,0 +1,7 @@
+﻿namespace NextFlix.Application.Abstraction.Enums
+{
+	public enum RedisPrefix
+	{
+		Country
+	}
+}
