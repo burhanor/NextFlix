@@ -7,6 +7,7 @@
 		Tag,
 		Channel,
 		Cast,
-		Source
+		Source,
+		User
 	}
 }

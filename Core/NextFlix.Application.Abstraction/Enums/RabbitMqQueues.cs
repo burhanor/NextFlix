@@ -7,6 +7,7 @@
 		Tags,
 		Channels,
 		Casts,
-		Sources
+		Sources,
+		Users
 	}
 }

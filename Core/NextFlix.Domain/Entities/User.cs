@@ -1,9 +1,10 @@
 ﻿using NextFlix.Domain.Concretes;
 using NextFlix.Domain.Enums;
+using NextFlix.Domain.Interfaces;
 
 namespace NextFlix.Domain.Entities
 {
-	public class User:EntityBase
+	public class User:EntityBase,ISlug
 	{
 		public string Nickname { get; set; }
 		public string EmailAddress { get; set; }

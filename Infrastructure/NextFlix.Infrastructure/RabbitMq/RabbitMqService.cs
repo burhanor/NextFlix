@@ -100,7 +100,7 @@ namespace NextFlix.Infrastructure.RabbitMq
 									 durable: true,
 									 autoDelete: false);
 
-			
+
 		}
 		private async Task InitializeBindAsync(string exchangeName, string queueName,string routingKey) 
 		{
