@@ -5,6 +5,7 @@
 		Country,
 		Category,
 		Tag,
-		Channel
+		Channel,
+		Cast
 	}
 }

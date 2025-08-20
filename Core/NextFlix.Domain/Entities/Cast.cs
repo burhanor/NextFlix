@@ -1,9 +1,10 @@
 ﻿using NextFlix.Domain.Concretes;
 using NextFlix.Domain.Enums;
+using NextFlix.Domain.Interfaces;
 
 namespace NextFlix.Domain.Entities
 {
-	public class Cast:EntityBase
+	public class Cast:EntityBase,ISlug,IStatus
 	{
 		public string Name { get; set; }
 		public string? Avatar { get; set; }

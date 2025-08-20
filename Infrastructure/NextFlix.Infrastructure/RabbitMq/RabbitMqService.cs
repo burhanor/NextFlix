@@ -90,16 +90,16 @@ namespace NextFlix.Infrastructure.RabbitMq
 		}
 		private async Task InitializeQueueAsync(string exchangeName, string queueName)
 		{
-			await _channel.ExchangeDeclareAsync(exchange: exchangeName,
-									 type: ExchangeType.Direct,
-									 durable: true,
-									 autoDelete: false);
-
 			await _channel.QueueDeclareAsync(queue: queueName,
 								  durable: true,
 								  exclusive: false,
 								  autoDelete: false,
 								  arguments: null);
+			await _channel.ExchangeDeclareAsync(exchange: exchangeName,
+									 type: ExchangeType.Direct,
+									 durable: true,
+									 autoDelete: false);
+
 			
 		}
 		private async Task InitializeBindAsync(string exchangeName, string queueName,string routingKey) 

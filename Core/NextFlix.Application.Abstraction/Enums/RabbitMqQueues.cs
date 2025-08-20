@@ -5,6 +5,7 @@
 		Countries,
 		Categories,
 		Tags,
-		Channels
+		Channels,
+		Casts
 	}
 }
