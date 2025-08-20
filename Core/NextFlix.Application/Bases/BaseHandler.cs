@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using NextFlix.Application.Abstraction.Interfaces.RabbitMq;
 using NextFlix.Application.Abstraction.Interfaces.Repositories;
 using NextFlix.Application.Abstraction.Interfaces.Uow;
+using NextFlix.Application.Extensions;
 using NextFlix.Domain.Interfaces;
 
 namespace NextFlix.Application.Bases
@@ -26,6 +27,8 @@ namespace NextFlix.Application.Bases
 			this.mapper = mapper;
 			readRepository = uow.GetReadRepository<T>();
 			writeRepository = uow.GetWriteRepository<T>();
+			ipAddress = httpContextAccessor.GetIpAddress();
+			userId = httpContextAccessor.GetUserId();
 			RabbitMqService = rabbitMqService;
 		}
 		public BaseHandler(IUow uow, IMapper mapper, IRabbitMqService rabbitMqService) : base()
@@ -44,6 +47,8 @@ namespace NextFlix.Application.Bases
 			this.mapper = mapper;
 			readRepository = uow.GetReadRepository<T>();
 			writeRepository = uow.GetWriteRepository<T>();
+			ipAddress = httpContextAccessor.GetIpAddress();
+			userId = httpContextAccessor.GetUserId();
 		}
 
 		public BaseHandler(IUow uow, IMapper mapper) : base()

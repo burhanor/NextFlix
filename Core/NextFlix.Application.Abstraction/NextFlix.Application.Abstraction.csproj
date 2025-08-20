@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NextFlix.Domain\NextFlix.Domain.csproj" />
+    <ProjectReference Include="..\NextFlix.Shared\NextFlix.Shared.csproj" />
   </ItemGroup>
 
 </Project>
