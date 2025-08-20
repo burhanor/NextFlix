@@ -2,6 +2,7 @@ using Scalar.AspNetCore;
 using NextFlix.Persistence;
 using NextFlix.Infrastructure;
 using NextFlix.Application;
+using NextFlix.Infrastructure.RabbitMq;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,6 @@ builder.Services.AddOpenApi();
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
-
 var app = builder.Build();
 
 

@@ -48,6 +48,7 @@ namespace NextFlix.Infrastructure.RabbitMq
 				_channel = await _connection.CreateChannelAsync(cancellationToken: cancellationToken);
 
 				_connected = true;
+				await InitializeQueueAndBinding();
 			}
 			catch (Exception ex)
 			{
@@ -59,6 +60,55 @@ namespace NextFlix.Infrastructure.RabbitMq
 				_lock.Release();
 			}
 		}
+
+		private async Task InitializeQueueAndBinding()
+		{
+			var tasks = new List<Task>();
+
+			foreach (RabbitMqQueues exchange in Enum.GetValues(typeof(RabbitMqQueues)))
+			{
+				string exchangeName = exchange.ToString();
+				string queueName = exchange.ToString();
+
+				tasks.Add(InitializeQueueAsync(exchangeName, queueName));
+
+				var routingKeys = GetRoutingKeysForExchange(exchange);
+
+				foreach (var routingKey in routingKeys)
+				{
+					tasks.Add(InitializeBindAsync(exchangeName, queueName, routingKey));
+				}
+			}
+
+			await Task.WhenAll(tasks);
+		}
+		private IEnumerable<string> GetRoutingKeysForExchange(RabbitMqQueues exchange)
+		{
+		return	Enum.GetValues(typeof(RabbitMqRoutingKeys))
+									  .Cast<RabbitMqRoutingKeys>()
+									  .Select(x => x.ToString());
+		}
+		private async Task InitializeQueueAsync(string exchangeName, string queueName)
+		{
+			await _channel.ExchangeDeclareAsync(exchange: exchangeName,
+									 type: ExchangeType.Direct,
+									 durable: true,
+									 autoDelete: false);
+
+			await _channel.QueueDeclareAsync(queue: queueName,
+								  durable: true,
+								  exclusive: false,
+								  autoDelete: false,
+								  arguments: null);
+			
+		}
+		private async Task InitializeBindAsync(string exchangeName, string queueName,string routingKey) 
+		{
+			await _channel.QueueBindAsync(queue: queueName,
+							   exchange: exchangeName,
+							   routingKey: routingKey);
+		}
+
 
 		public async Task Publish(RabbitMqQueues exchange, RabbitMqRoutingKeys routingType, object message, CancellationToken cancellationToken)
 		{
@@ -73,13 +123,13 @@ namespace NextFlix.Infrastructure.RabbitMq
 
 			try
 			{
-				await _channel.ExchangeDeclareAsync(exchangeName.ToString(), ExchangeType.Direct, durable: true, autoDelete: false, arguments: null, cancellationToken: cancellationToken);
+				//await _channel.ExchangeDeclareAsync(exchangeName.ToString(), ExchangeType.Direct, durable: true, autoDelete: false, arguments: null, cancellationToken: cancellationToken);
 
-				if (!string.IsNullOrEmpty(queueName))
-				{
-					await _channel.QueueDeclareAsync(queueName, durable: true, exclusive: false, autoDelete: false, arguments: null, cancellationToken: cancellationToken);
-					await _channel.QueueBindAsync(queueName, exchangeName, routingKey, arguments: null, cancellationToken: cancellationToken);
-				}
+				//if (!string.IsNullOrEmpty(queueName))
+				//{
+				//	await _channel.QueueDeclareAsync(queueName, durable: true, exclusive: false, autoDelete: false, arguments: null, cancellationToken: cancellationToken);
+				//	await _channel.QueueBindAsync(queueName, exchangeName, routingKey, arguments: null, cancellationToken: cancellationToken);
+				//}
 
 				var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message));
 

@@ -21,7 +21,7 @@ namespace NextFlix.Infrastructure
 			services.AddSingleton<IRedisService, RedisService>();
 
 			services.AddScoped<IFileStorageService, FileStorageService>();
-
+			services.AddHostedService<RabbitMqHostedService>();
 
 		}
 	}
