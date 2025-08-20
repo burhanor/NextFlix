@@ -84,7 +84,7 @@ namespace NextFlix.Infrastructure.RabbitMq
 		}
 		private IEnumerable<string> GetRoutingKeysForExchange(RabbitMqQueues exchange)
 		{
-		return	Enum.GetValues(typeof(RabbitMqRoutingKeys))
+			return	Enum.GetValues(typeof(RabbitMqRoutingKeys))
 									  .Cast<RabbitMqRoutingKeys>()
 									  .Select(x => x.ToString());
 		}

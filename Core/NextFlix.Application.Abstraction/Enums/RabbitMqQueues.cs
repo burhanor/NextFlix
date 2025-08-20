@@ -6,6 +6,7 @@
 		Categories,
 		Tags,
 		Channels,
-		Casts
+		Casts,
+		Sources
 	}
 }
