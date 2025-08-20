@@ -4,6 +4,7 @@
 	{
 		Countries,
 		Categories,
-		Tags
+		Tags,
+		Channels
 	}
 }

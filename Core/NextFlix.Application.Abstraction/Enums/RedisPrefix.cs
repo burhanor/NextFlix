@@ -4,6 +4,7 @@
 	{
 		Country,
 		Category,
-		Tag
+		Tag,
+		Channel
 	}
 }
