@@ -14,7 +14,7 @@ using NextFlix.Domain.Enums;
 
 namespace NextFlix.API.Controllers
 {
-	[Route("api/countries")]
+	[Route("countries")]
 	[ApiController]
 	public class CountryController(IMediator mediator, IWebHostEnvironment environment,IMapper mapper) : ControllerBase
 	{

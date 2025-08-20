@@ -4,13 +4,15 @@ using NextFlix.Application.Abstraction.Interfaces.Uow;
 using NextFlix.Application.Bases;
 using NextFlix.Application.Models;
 
-namespace NextFlix.Application.Features.Country.Queries.GetCountries
+namespace NextFlix.Application.Features.Category.Queries.GetCategories
 {
-	public class GetCountriesQueryHandler(IUow uow, IMapper mapper) : BaseHandler<Domain.Entities.Country>(uow, mapper), IRequestHandler<GetCountriesQueryRequest, PaginationContainer<GetCountriesQueryResponse>>
+	
+
+	public class GetCategoriesQueryHandler(IUow uow, IMapper mapper) : BaseHandler<Domain.Entities.Category>(uow, mapper), IRequestHandler<GetCategoriesQueryRequest, PaginationContainer<GetCategoriesQueryResponse>>
 	{
-		public async Task<PaginationContainer<GetCountriesQueryResponse>> Handle(GetCountriesQueryRequest request, CancellationToken cancellationToken)
+		public async Task<PaginationContainer<GetCategoriesQueryResponse>> Handle(GetCategoriesQueryRequest request, CancellationToken cancellationToken)
 		{
-			IQueryable<Domain.Entities.Country> query = readRepository.Query();
+			IQueryable<Domain.Entities.Category> query = readRepository.Query();
 			if (!string.IsNullOrEmpty(request.Name))
 			{
 				query = query.Where(x => x.Name.Contains(request.Name));
@@ -19,7 +21,7 @@ namespace NextFlix.Application.Features.Country.Queries.GetCountries
 			{
 				query = query.Where(x => x.Slug.Contains(request.Slug));
 			}
-			if (request.Status?.Length>0)
+			if (request.Status?.Length > 0)
 			{
 				query = query.Where(x => request.Status.Contains(x.Status));
 			}
@@ -29,18 +31,19 @@ namespace NextFlix.Application.Features.Country.Queries.GetCountries
 			else if (request.PageSize.HasValue)
 				query = query.Take(request.PageSize.Value);
 
-			PaginationContainer<GetCountriesQueryResponse> response = new()
+			PaginationContainer<GetCategoriesQueryResponse> response = new()
 			{
-				Items = mapper.Map<List<GetCountriesQueryResponse>>(query),
+				Items = mapper.Map<List<GetCategoriesQueryResponse>>(query),
 				TotalCount = totalCount,
 				PageNumber = request.PageNumber ?? 1,
 				PageSize = request.PageSize ?? totalCount,
 			};
 
-			IList<Domain.Entities.Country> countries = await readRepository.ToListAsync(query, cancellationToken);
-			response.Items = mapper.Map<List<GetCountriesQueryResponse>>(countries);
+			IList<Domain.Entities.Category> categories = await readRepository.ToListAsync(query, cancellationToken);
+			response.Items = mapper.Map<List<GetCategoriesQueryResponse>>(categories);
 
 			return response;
 		}
 	}
+
 }

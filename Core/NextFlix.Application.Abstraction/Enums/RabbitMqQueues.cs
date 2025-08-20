@@ -8,6 +8,7 @@ namespace NextFlix.Application.Abstraction.Enums
 {
 	public enum RabbitMqQueues
 	{
-		Countries
+		Countries,
+		Categories
 	}
 }
