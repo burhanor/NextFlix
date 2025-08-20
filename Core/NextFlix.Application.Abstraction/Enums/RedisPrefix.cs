@@ -3,6 +3,7 @@
 	public enum RedisPrefix
 	{
 		Country,
-		Category
+		Category,
+		Tag
 	}
 }

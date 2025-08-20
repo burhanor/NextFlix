@@ -19,7 +19,7 @@ namespace NextFlix.API.Controllers
 	
 
 
-	public class CategoryController(IMediator mediator, IWebHostEnvironment environment, IMapper mapper) : ControllerBase
+	public class CategoryController(IMediator mediator, IMapper mapper) : ControllerBase
 	{
 
 
