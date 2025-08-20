@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NextFlix.API.Attributes;
 using NextFlix.API.Extensions;
 using NextFlix.Application.Dto.SourceDtos;
 using NextFlix.Application.Features.Source.Commands.CreateSource;
@@ -15,7 +16,8 @@ namespace NextFlix.API.Controllers
 {
 	[Route("sources")]
 	[ApiController]
-	
+	[RequestResponseLog]
+
 
 	public class SourceController(IMediator mediator, IMapper mapper) : ControllerBase
 	{

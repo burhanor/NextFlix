@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NextFlix.API.Attributes;
 using NextFlix.API.Extensions;
 using NextFlix.Application.Dto.CountryDtos;
 using NextFlix.Application.Features.Country.Commands.CreateCountry;
@@ -16,6 +17,7 @@ namespace NextFlix.API.Controllers
 {
 	[Route("countries")]
 	[ApiController]
+	[RequestResponseLog]
 	public class CountryController(IMediator mediator, IWebHostEnvironment environment,IMapper mapper) : ControllerBase
 	{
 

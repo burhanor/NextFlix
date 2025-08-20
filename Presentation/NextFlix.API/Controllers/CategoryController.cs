@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NextFlix.API.Attributes;
 using NextFlix.API.Extensions;
 using NextFlix.Application.Dto.CategoryDtos;
 using NextFlix.Application.Features.Category.Commands.CreateCategory;
@@ -16,9 +17,7 @@ namespace NextFlix.API.Controllers
 {
 	[Route("categories")]
 	[ApiController]
-	
-
-
+	[RequestResponseLog]
 	public class CategoryController(IMediator mediator, IMapper mapper) : ControllerBase
 	{
 

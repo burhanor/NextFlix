@@ -11,14 +11,13 @@ using NextFlix.Application.Features.Channel.Queries.GetChannels;
 using NextFlix.Application.Features.Channel.Queries.GetChannel;
 using NextFlix.Domain.Enums;
 using NextFlix.Application.Features.Channel.Queries.ChannelSlugIsExist;
+using NextFlix.API.Attributes;
 
 namespace NextFlix.API.Controllers
 {
 	[Route("channels")]
 	[ApiController]
-	
-
-
+	[RequestResponseLog]
 	public class ChannelController(IMediator mediator, IWebHostEnvironment environment, IMapper mapper) : ControllerBase
 	{
 		[HttpGet("{id}")]

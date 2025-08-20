@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NextFlix.API.Attributes;
 using NextFlix.API.Extensions;
 using NextFlix.Application.Dto.CastDtos;
 using NextFlix.Application.Features.Cast.Commands.CreateCast;
@@ -16,8 +17,7 @@ namespace NextFlix.API.Controllers
 {
 	[Route("casts")]
 	[ApiController]
-	
-
+	[RequestResponseLog]
 	public class CastController(IMediator mediator, IWebHostEnvironment environment, IMapper mapper) : ControllerBase
 	{
 

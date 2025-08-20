@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NextFlix.API.Attributes;
 using NextFlix.API.Extensions;
 using NextFlix.Application.Dto.TagDtos;
 using NextFlix.Application.Features.Tag.Commands.CreateTag;
@@ -16,7 +17,8 @@ namespace NextFlix.API.Controllers
 {
 	[Route("tags")]
 	[ApiController]
-	
+	[RequestResponseLog]
+
 
 	public class TagController(IMediator mediator, IMapper mapper) : ControllerBase
 	{

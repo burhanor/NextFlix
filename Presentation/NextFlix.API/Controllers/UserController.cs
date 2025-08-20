@@ -11,12 +11,13 @@ using NextFlix.Application.Features.User.Queries.GetUsers;
 using NextFlix.Application.Features.User.Queries.GetUser;
 using NextFlix.Domain.Enums;
 using NextFlix.Application.Features.User.Queries.UserSlugIsExist;
+using NextFlix.API.Attributes;
 
 namespace NextFlix.API.Controllers
 {
 	[Route("users")]
 	[ApiController]
-
+	[RequestResponseLog]
 	public class UserController(IMediator mediator, IWebHostEnvironment environment, IMapper mapper) : ControllerBase
 	{
 
