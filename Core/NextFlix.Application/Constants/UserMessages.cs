@@ -13,6 +13,7 @@
 		public const string NICKNAME_ALREADY_EXISTS = nameof(NICKNAME_ALREADY_EXISTS);
 		public const string NICKNAME_MAX_LENGTH = nameof(NICKNAME_MAX_LENGTH);
 		public const string EMAIL_REQUIRED = nameof(EMAIL_REQUIRED);
+		public const string EMAIL_INVALID = nameof(EMAIL_INVALID);
 		public const string EMAIL_ALREADY_EXISTS = nameof(EMAIL_ALREADY_EXISTS);
 		public const string EMAIL_MAX_LENGTH = nameof(EMAIL_MAX_LENGTH);
 		public const string SLUG_REQUIRED = nameof(SLUG_REQUIRED);

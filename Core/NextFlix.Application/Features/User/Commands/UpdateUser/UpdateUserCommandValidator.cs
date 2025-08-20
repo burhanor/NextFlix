@@ -12,6 +12,7 @@ namespace NextFlix.Application.Features.User.Commands.UpdateUser
 				.MaximumLength(50).WithMessage(UserMessages.NICKNAME_MAX_LENGTH);
 			RuleFor(m => m.EmailAddress)
 				.NotEmpty().WithMessage(UserMessages.EMAIL_REQUIRED)
+				.EmailAddress().WithMessage(UserMessages.EMAIL_INVALID)
 				.MaximumLength(100).WithMessage(UserMessages.EMAIL_MAX_LENGTH);
 			RuleFor(m => m.Slug)
 				.NotEmpty().WithMessage(UserMessages.SLUG_REQUIRED)
