@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NextFlix.Application.Dto.ImageDto;
+using NextFlix.Application.Dto.MovieDtos;
+using NextFlix.Application.Interfaces;
 
 namespace NextFlix.Application.Features.Movie.Commands.UpdateMovie
 {
-	internal class UpdateMovieCommandRequest
+	public class UpdateMovieCommandRequest : MovieDto, IRequestContainer<UpdateMovieCommandResponse>
 	{
+		public int Id { get; set; }
+		public ImageDto? PosterImage { get; set; }
 	}
 }

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NextFlix.Application.Interfaces;
 
 namespace NextFlix.Application.Features.Movie.Commands.WatchMovie
 {
-	internal class WatchMovieCommandRequest
+	public class WatchMovieCommandRequest(int movieId) : IRequestContainer<WatchMovieCommandResponse>
 	{
+		public int MovieId { get; set; } = movieId;
 	}
 }

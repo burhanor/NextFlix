@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NextFlix.Application.Helpers;
 using System.Reflection;
 
 namespace NextFlix.Application
@@ -9,7 +10,8 @@ namespace NextFlix.Application
 		{
 			Assembly assembly = Assembly.GetExecutingAssembly();
 			services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));
-			services.AddAutoMapper(cfg => cfg.AddMaps(assembly));
+			services.AddAutoMapper(cfg => cfg.AddMaps(assembly)); 
+			services.AddScoped<MovieHelper>();
 		}
 	}
 }

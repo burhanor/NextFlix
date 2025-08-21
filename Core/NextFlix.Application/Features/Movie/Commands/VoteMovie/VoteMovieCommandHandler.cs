@@ -1,12 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using NextFlix.Application.Abstraction.Interfaces.Uow;
+using NextFlix.Application.Bases;
+using NextFlix.Application.Constants;
+using NextFlix.Shared.Response;
 
 namespace NextFlix.Application.Features.Movie.Commands.VoteMovie
 {
-	internal class VoteMovieCommandHandler
+	public class VoteMovieCommandHandler(IUow uow, IHttpContextAccessor httpContextAccessor, IMapper mapper) : BaseHandler<Domain.Entities.MovieLike>(uow, httpContextAccessor, mapper), IRequestHandler<VoteMovieCommandRequest, ResponseContainer<VoteMovieCommandResponse>>
 	{
+		public async Task<ResponseContainer<VoteMovieCommandResponse>> Handle(VoteMovieCommandRequest request, CancellationToken cancellationToken)
+		{
+			ResponseContainer<VoteMovieCommandResponse> response = new();
+			bool movieIsExist = await uow.GetReadRepository<Domain.Entities.Movie>().ExistAsync(m => m.Id == request.MovieId, cancellationToken);
+			if(!movieIsExist)
+			{
+				response.ValidationErrors =
+				[
+					new ValidationError
+					{
+						ErrorMessage = MovieMessages.NOT_FOUND,
+						PropertyName = nameof(request.MovieId)
+					}
+				];
+				return response;
+			}
+			writeRepository.Delete(m => m.MovieId == request.MovieId && m.IpAddress == ipAddress && m.VoteDate.Date == DateTime.Today);
+			Domain.Entities.MovieLike movieLike = new()
+			{
+				MovieId = request.MovieId,
+				IpAddress = ipAddress,
+				VoteDate = DateTime.UtcNow,
+				
+			};
+			await writeRepository.AddAsync(movieLike, cancellationToken);
+			await uow.SaveChangesAsync(cancellationToken);
+			if (movieLike.Id > 0)
+			{
+				response.Status = ResponseStatus.Success;
+				response.Message = MovieMessages.VOTE_SUCCESS;
+				response.Data = new VoteMovieCommandResponse();
+			}
+			else
+			{
+				response.Status = ResponseStatus.Failed;
+				response.Message = MovieMessages.VOTE_FAILED;
+			}
+			return response;
+		}
 	}
 }

@@ -17,8 +17,13 @@
 		public const string SLUG_MAX_LENGTH = nameof(SLUG_MAX_LENGTH);
 		public const string STATUS_REQUIRED = nameof(STATUS_REQUIRED);
 		public const string DESCRIPTION_MAX_LENGTH = nameof(DESCRIPTION_MAX_LENGTH);
-		public const string DURATION_REQUIRED = nameof(DURATION_REQUIRED); 
-		public const string DURATION_INVALID = nameof(DURATION_INVALID); 
+		public const string DURATION_REQUIRED = nameof(DURATION_REQUIRED);
+		public const string DURATION_INVALID = nameof(DURATION_INVALID);
+		public const string VOTE_SUCCESS = nameof(VOTE_SUCCESS);
+		public const string VOTE_FAILED = nameof(VOTE_FAILED);
+		public const string VIEW_SUCCESS = nameof(VIEW_SUCCESS);
+		public const string VIEW_FAILED = nameof(VIEW_FAILED);
+
 
 	}
 }
