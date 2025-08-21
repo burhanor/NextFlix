@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NextFlix.Application.Interfaces;
+using NextFlix.Domain.Enums;
 
 namespace NextFlix.Application.Features.Movie.Queries.MovieSlugIsExist
 {
-	internal class MovieSlugIsExistQueryRequest
+	public class MovieSlugIsExistQueryRequest(string slug, Status? status) : ISlugIsExistRequest
 	{
+		public string Slug { get; set; } = slug;
+		public Status? Status { get; set; } = status;
 	}
 }

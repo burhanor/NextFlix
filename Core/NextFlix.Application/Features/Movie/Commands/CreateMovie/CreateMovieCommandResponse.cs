@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NextFlix.Application.Dto.MovieDtos;
 
 namespace NextFlix.Application.Features.Movie.Commands.CreateMovie
 {
-	internal class CreateMovieCommandResponse
+	public class CreateMovieCommandResponse
 	{
+		public int Id { get; set; }
 	}
 }

@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using NextFlix.Application.Abstraction.Enums;
+using NextFlix.Application.Abstraction.Interfaces.RabbitMq;
+using NextFlix.Application.Abstraction.Interfaces.Uow;
+using NextFlix.Application.Bases;
+using NextFlix.Application.Constants;
 
 namespace NextFlix.Application.Features.Movie.Commands.DeleteMovie
 {
-	internal class DeleteMovieCommandHandler
+	
+	public class DeleteMovieCommandHandler(IUow uow, IMapper mapper, IRabbitMqService rabbitMqService) : DeleteHandler<Domain.Entities.Movie, DeleteMovieCommandRequest>(uow, mapper, MovieMessages.DELETED, MovieMessages.DELETED_ERROR, rabbitMqService, RabbitMqQueues.Movies)
 	{
+
 	}
 }

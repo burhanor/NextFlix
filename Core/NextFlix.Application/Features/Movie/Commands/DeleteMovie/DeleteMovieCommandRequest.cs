@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NextFlix.Application.Models;
 
 namespace NextFlix.Application.Features.Movie.Commands.DeleteMovie
 {
-	internal class DeleteMovieCommandRequest
+	public class DeleteMovieCommandRequest:DeleteRequest
 	{
+		public DeleteMovieCommandRequest() : base()
+		{
+
+		}
+		public DeleteMovieCommandRequest(int id) : base(id)
+		{
+		}
+		public DeleteMovieCommandRequest(List<int> ids) : base(ids)
+		{
+		}
 	}
 }

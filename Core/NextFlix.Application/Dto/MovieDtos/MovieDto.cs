@@ -16,6 +16,5 @@ namespace NextFlix.Application.Dto.MovieDtos
 		public List<IdDisplayOrder>? Tags { get; set; }
 		public List<MovieSourceDto>? MovieSources { get; set; }
 		public List<MovieTrailerDto>? Trailers { get; set; }
-
 	}
 }

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NextFlix.Application.Abstraction.Interfaces.Uow;
+using NextFlix.Application.Bases;
 
 namespace NextFlix.Application.Features.Movie.Queries.MovieSlugIsExist
 {
-	internal class MovieSlugIsExistQueryHandler
+
+	public class MovieSlugIsExistQueryHandler(IUow uow) : SlugExistHandler<Domain.Entities.Movie, MovieSlugIsExistQueryRequest>(uow)
 	{
+
 	}
 }

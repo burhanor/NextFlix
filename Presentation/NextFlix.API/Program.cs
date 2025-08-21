@@ -1,4 +1,5 @@
 using NextFlix.API.Middlewares;
+using NextFlix.API.Transformers;
 using NextFlix.Application;
 using NextFlix.Infrastructure;
 using NextFlix.Persistence;
@@ -20,7 +21,10 @@ builder.Host.UseSerilog();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+{
+	options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+});
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();

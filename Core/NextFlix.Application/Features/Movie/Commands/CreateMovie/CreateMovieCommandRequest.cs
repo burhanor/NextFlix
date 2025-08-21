@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NextFlix.Application.Dto.ImageDto;
+using NextFlix.Application.Dto.MovieDtos;
+using NextFlix.Application.Interfaces;
 
 namespace NextFlix.Application.Features.Movie.Commands.CreateMovie
 {
-	internal class CreateMovieCommandRequest
+	public class CreateMovieCommandRequest:MovieDto,IRequestContainer<CreateMovieCommandResponse>
 	{
+		public ImageDto? PosterImage { get; set; }
 	}
 }
