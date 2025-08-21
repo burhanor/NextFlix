@@ -70,6 +70,13 @@ namespace NextFlix.Persistence.Repositories
 			return await query.ToListAsync(cancellationToken);
 		}
 
+
+		public async Task<IList<TReturnType>> ToListAsync<TReturnType>(IQueryable<T> query, Expression<Func<T, TReturnType>> select, CancellationToken cancellationToken = default)
+		{
+			return await query.Select(select).ToListAsync(cancellationToken);
+		}
+
+
 		public async Task<int> CountAsync(IQueryable<T> query, CancellationToken cancellationToken = default)
 		{
 			return await query.CountAsync();

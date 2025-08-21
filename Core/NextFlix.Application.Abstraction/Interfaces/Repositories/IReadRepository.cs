@@ -15,6 +15,7 @@ namespace NextFlix.Application.Abstraction.Interfaces.Repositories
 		Task<bool> UniqueAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default);
 		IQueryable<T> Query();
 		Task<IList<T>> ToListAsync(IQueryable<T> query, CancellationToken cancellationToken = default);
+		Task<IList<TReturnType>> ToListAsync<TReturnType>(IQueryable<T> query, Expression<Func<T, TReturnType>> select, CancellationToken cancellationToken = default);
 		Task<int> CountAsync(IQueryable<T> query, CancellationToken cancellationToken = default);
 
 	}

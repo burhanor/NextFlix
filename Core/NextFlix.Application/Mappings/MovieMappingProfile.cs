@@ -2,6 +2,7 @@
 using NextFlix.Application.Dto.MovieDtos;
 using NextFlix.Application.Features.Movie.Commands.CreateMovie;
 using NextFlix.Application.Features.Movie.Commands.UpdateMovie;
+using NextFlix.Application.Features.Movie.Queries.GetMovie;
 
 namespace NextFlix.Application.Mappings
 {
@@ -14,6 +15,17 @@ namespace NextFlix.Application.Mappings
 
 
 			CreateMap<MovieDto, UpdateMovieCommandRequest>().ReverseMap();
+
+			CreateMap<Domain.Entities.Movie, GetMovieQueryResponse>();
+			CreateMap<Domain.Entities.Movie, MovieResponse>();
+			CreateMap<MovieResponse, GetMovieQueryResponse>().ReverseMap();
+			CreateMap<Domain.Entities.Cast, MovieCastResponse>();
+			CreateMap<Domain.Entities.Tag, MovieTagResponse>();
+			CreateMap<Domain.Entities.Channel, MovieChannelResponse>();
+			CreateMap<Domain.Entities.Category, MovieCategoryResponse>();
+			CreateMap<Domain.Entities.Country, MovieCountryResponse>();
+			CreateMap<Domain.Entities.Source, MovieSourceResponse>();
+			CreateMap<Domain.Entities.MovieTrailer, MovieTrailerDto>();
 		}
 	}
 }

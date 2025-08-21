@@ -8,11 +8,12 @@ using NextFlix.Application.Abstraction.Interfaces.Uow;
 using NextFlix.Application.Bases;
 using NextFlix.Application.Constants;
 using NextFlix.Application.Helpers;
+using NextFlix.Application.Interfaces;
 using NextFlix.Shared.Response;
 
 namespace NextFlix.Application.Features.Movie.Commands.CreateMovie
 {
-	public class CreateMovieCommandHandler(IUow uow, IHttpContextAccessor httpContextAccessor, IMapper mapper, IRabbitMqService rabbitMqService,IFileStorageService fileStorageService,MovieHelper movieHelper) : BaseHandler<Domain.Entities.Movie>(uow, httpContextAccessor, mapper, rabbitMqService), IRequestHandler<CreateMovieCommandRequest, ResponseContainer<CreateMovieCommandResponse>>
+	public class CreateMovieCommandHandler(IUow uow, IHttpContextAccessor httpContextAccessor, IMapper mapper, IRabbitMqService rabbitMqService,IFileStorageService fileStorageService, IMovieHelper movieHelper) : BaseHandler<Domain.Entities.Movie>(uow, httpContextAccessor, mapper, rabbitMqService), IRequestHandler<CreateMovieCommandRequest, ResponseContainer<CreateMovieCommandResponse>>
 	{
 		public async Task<ResponseContainer<CreateMovieCommandResponse>> Handle(CreateMovieCommandRequest request, CancellationToken cancellationToken)
 		{

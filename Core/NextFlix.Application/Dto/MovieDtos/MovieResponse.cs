@@ -15,14 +15,14 @@ namespace NextFlix.Application.Dto.MovieDtos
 		public DateTime? PublishDate { get; set; }
 		public string? Poster { get; set; }
 		public string Slug { get; set; }
-		public List<MovieTagResponse> Tags { get; set; }
-		public List<MovieCategoryResponse> Categories { get; set; }
-		public List<MovieChannelResponse> Channels { get; set; }
-		public List<MovieCountryResponse> Countries { get; set; }
-		public List<MovieCastResponse> Casts { get; set; }
-		public List<MovieTrailerDto> Trailers { get; set; }
-		public List<MovieSourceResponse> Sources { get; set; }
+		public List<MovieTagResponse>? Tags { get; set; }
+		public List<MovieCategoryResponse>? Categories { get; set; }
+		public List<MovieChannelResponse>? Channels { get; set; }
+		public List<MovieCountryResponse>? Countries { get; set; }
+		public List<MovieCastResponse>? Casts { get; set; }
+		public List<MovieTrailerDto>? Trailers { get; set; }
+		public List<MovieSourceResponse>? Sources { get; set; }
 		public int ViewCount { get; set; }
-		public List<MovieVoteResponse> Votes { get; set; }
+		public List<MovieVoteResponse>? Votes { get; set; }
 	}
 }

@@ -10,6 +10,7 @@ using NextFlix.Application.Features.Movie.Commands.DeleteMovie;
 using NextFlix.Application.Features.Movie.Commands.UpdateMovie;
 using NextFlix.Application.Features.Movie.Commands.VoteMovie;
 using NextFlix.Application.Features.Movie.Commands.WatchMovie;
+using NextFlix.Application.Features.Movie.Queries.GetMovie;
 using NextFlix.Application.Features.Movie.Queries.MovieIsExist;
 using NextFlix.Application.Features.Movie.Queries.MovieSlugIsExist;
 using NextFlix.Domain.Enums;
@@ -21,7 +22,13 @@ namespace NextFlix.API.Controllers
 	[RequestResponseLog]
 	public class MovieController(IMediator mediator,IMapper mapper,IWebHostEnvironment environment) : ControllerBase
 	{
-
+		[HttpGet("{id}")]
+		public async Task<IActionResult> GetMovie(int id)
+		{
+			GetMovieQueryRequest request = new(id);
+			var response = await mediator.Send(request);
+			return Ok(response);
+		}
 
 		[HttpPost]
 		[Authorize]
