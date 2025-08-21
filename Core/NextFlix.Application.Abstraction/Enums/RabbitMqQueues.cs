@@ -8,6 +8,7 @@
 		Channels,
 		Casts,
 		Sources,
-		Users
+		Users,
+		Movies
 	}
 }

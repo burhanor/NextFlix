@@ -1,9 +1,10 @@
 ﻿using NextFlix.Domain.Concretes;
 using NextFlix.Domain.Enums;
+using NextFlix.Domain.Interfaces;
 
 namespace NextFlix.Domain.Entities
 {
-	public class Movie:EntityBase
+	public class Movie:EntityBase,ISlug,IStatus
 	{
 		public string Title { get; set; }
 		public string? Description { get; set; }

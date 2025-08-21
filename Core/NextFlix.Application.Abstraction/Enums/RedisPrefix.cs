@@ -8,6 +8,7 @@
 		Channel,
 		Cast,
 		Source,
-		User
+		User,
+		Movie
 	}
 }
