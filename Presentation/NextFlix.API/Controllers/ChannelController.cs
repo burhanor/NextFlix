@@ -12,6 +12,7 @@ using NextFlix.Application.Features.Channel.Queries.GetChannel;
 using NextFlix.Domain.Enums;
 using NextFlix.Application.Features.Channel.Queries.ChannelSlugIsExist;
 using NextFlix.API.Attributes;
+using NextFlix.API.Models;
 
 namespace NextFlix.API.Controllers
 {
@@ -60,21 +61,21 @@ namespace NextFlix.API.Controllers
 
 
 		[HttpPost]
-		public async Task<IActionResult> CreateChannel([FromForm] ChannelDto model, [FromForm] IFormFile? file)
+		public async Task<IActionResult> CreateChannel([FromForm] ChannelModel model)
 		{
 			CreateChannelCommandRequest request = new()
 			{
 				Name = model.Name,
 				Slug = model.Slug,
 				Status = model.Status,
-				LogoImage = file.ToImageDto(environment.WebRootPath)
+				LogoImage = model.File.ToImageDto(environment.WebRootPath)
 			};
 			var response = await mediator.Send(request);
 			return this.ToApiResponse(response);
 		}
 
 		[HttpPut("{id}")]
-		public async Task<IActionResult> UpdateChannel(int id, [FromForm] ChannelDto model, [FromForm] IFormFile? file)
+		public async Task<IActionResult> UpdateChannel(int id, [FromForm] ChannelModel model)
 		{
 			UpdateChannelCommandRequest request = new()
 			{
@@ -82,7 +83,7 @@ namespace NextFlix.API.Controllers
 				Slug = model.Slug,
 				Status = model.Status,
 				Id = id,
-				LogoImage = file.ToImageDto(environment.WebRootPath)
+				LogoImage = model.File.ToImageDto(environment.WebRootPath)
 			};
 			var response = await mediator.Send(request);
 			return this.ToApiResponse(response);

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using NextFlix.Application.Models;
 
 namespace NextFlix.Application.Features.Movie.Queries.GetMovies
 {
-	internal class GetMoviesQueryRequest
+	public class GetMoviesQueryRequest:IRequest<PaginationContainer<GetMoviesQueryResponse>>
 	{
 	}
 }

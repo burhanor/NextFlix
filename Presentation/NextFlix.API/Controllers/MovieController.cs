@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NextFlix.API.Attributes;
 using NextFlix.API.Extensions;
-using NextFlix.Application.Dto.MovieDtos;
+using NextFlix.API.Models;
 using NextFlix.Application.Features.Movie.Commands.CreateMovie;
 using NextFlix.Application.Features.Movie.Commands.DeleteMovie;
 using NextFlix.Application.Features.Movie.Commands.UpdateMovie;
@@ -40,23 +40,23 @@ namespace NextFlix.API.Controllers
 
 		[HttpPost]
 		[Authorize]
-		public async Task<IActionResult> CreateMovie([FromForm] MovieDto model, [FromForm] IFormFile? Poster)
+		public async Task<IActionResult> CreateMovie([FromForm] MovieModel model)
 		{
 			model.MapJsonListsFromForm(HttpContext.Request.Form);
 			CreateMovieCommandRequest request = mapper.Map<CreateMovieCommandRequest>(model);
 
-			request.PosterImage = Poster.ToImageDto(environment.WebRootPath);
+			request.PosterImage = model.Poster.ToImageDto(environment.WebRootPath);
 			var response = await mediator.Send(request);
 			return this.ToApiResponse(response);
 		}
 
 		[HttpPut("{id}")]
-		public async Task<IActionResult> UpdateMovie(int id, [FromForm] MovieDto model, [FromForm] IFormFile? Poster)
+		public async Task<IActionResult> UpdateMovie(int id, [FromForm] MovieModel model)
 		{
 			model.MapJsonListsFromForm(HttpContext.Request.Form);
 			UpdateMovieCommandRequest request = mapper.Map<UpdateMovieCommandRequest>(model);
 			request.Id = id;
-			request.PosterImage = Poster.ToImageDto(environment.WebRootPath);
+			request.PosterImage = model.Poster.ToImageDto(environment.WebRootPath);
 			var response = await mediator.Send(request);
 			return this.ToApiResponse(response);
 		}

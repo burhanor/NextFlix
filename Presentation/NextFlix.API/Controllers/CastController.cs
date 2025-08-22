@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NextFlix.API.Attributes;
 using NextFlix.API.Extensions;
+using NextFlix.API.Models;
 using NextFlix.Application.Dto.CastDtos;
 using NextFlix.Application.Features.Cast.Commands.CreateCast;
 using NextFlix.Application.Features.Cast.Commands.DeleteCast;
@@ -62,7 +63,7 @@ namespace NextFlix.API.Controllers
 
 
 		[HttpPost]
-		public async Task<IActionResult> CreateCast([FromForm] CastDto model, [FromForm] IFormFile? file)
+		public async Task<IActionResult> CreateCast([FromForm] CastModel model)
 		{
 			CreateCastCommandRequest request = new()
 			{
@@ -74,14 +75,14 @@ namespace NextFlix.API.Controllers
 				CastType=model.CastType,
 				Gender=model.Gender,
 				CountryId=model.CountryId,
-				AvatarImage = file.ToImageDto(environment.WebRootPath)
+				AvatarImage = model.File.ToImageDto(environment.WebRootPath)
 			};
 			var response = await mediator.Send(request);
 			return this.ToApiResponse(response);
 		}
 
 		[HttpPut("{id}")]
-		public async Task<IActionResult> UpdateCast(int id, [FromForm] CastDto model, [FromForm] IFormFile? file)
+		public async Task<IActionResult> UpdateCast(int id, [FromForm] CastModel model)
 		{
 			UpdateCastCommandRequest request = new()
 			{
@@ -94,7 +95,7 @@ namespace NextFlix.API.Controllers
 				Gender = model.Gender,
 				CountryId = model.CountryId,
 				Id = id,
-				AvatarImage = file.ToImageDto(environment.WebRootPath)
+				AvatarImage = model.File.ToImageDto(environment.WebRootPath)
 			};
 			var response = await mediator.Send(request);
 			return this.ToApiResponse(response);

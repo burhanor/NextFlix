@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NextFlix.API.Attributes;
 using NextFlix.API.Extensions;
+using NextFlix.API.Models;
 using NextFlix.Application.Dto.CountryDtos;
 using NextFlix.Application.Features.Country.Commands.CreateCountry;
 using NextFlix.Application.Features.Country.Commands.DeleteCountry;
@@ -62,21 +63,21 @@ namespace NextFlix.API.Controllers
 
 
 		[HttpPost]
-		public async Task<IActionResult> CreateCountry([FromForm] CountryDto model, [FromForm] IFormFile? file) 
+		public async Task<IActionResult> CreateCountry([FromForm] CountryModel model) 
 		{
 			CreateCountryCommandRequest request = new()
 			{
 				Name = model.Name,
 				Slug = model.Slug,
 				Status = model.Status,
-				FlagImage = file.ToImageDto(environment.WebRootPath)
+				FlagImage = model.File.ToImageDto(environment.WebRootPath)
 			};
 			var response = await mediator.Send(request);
 			return this.ToApiResponse(response);
 		}
 
 		[HttpPut("{id}")]
-		public async Task<IActionResult> UpdateCountry(int id,[FromForm] CountryDto model, [FromForm] IFormFile? file)
+		public async Task<IActionResult> UpdateCountry(int id,[FromForm] CountryModel model)
 		{
 			UpdateCountryCommandRequest request = new()
 			{
@@ -84,7 +85,7 @@ namespace NextFlix.API.Controllers
 				Slug = model.Slug,
 				Status = model.Status,
 				Id = id,
-				FlagImage = file.ToImageDto(environment.WebRootPath)
+				FlagImage = model.File.ToImageDto(environment.WebRootPath)
 			};
 			var response = await mediator.Send(request);
 			return this.ToApiResponse(response);

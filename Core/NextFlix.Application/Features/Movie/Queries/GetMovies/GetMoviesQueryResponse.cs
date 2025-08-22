@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NextFlix.Application.Dto.MovieDtos;
 
 namespace NextFlix.Application.Features.Movie.Queries.GetMovies
 {
-	internal class GetMoviesQueryResponse
+	public class GetMoviesQueryResponse:MovieResponse
 	{
 	}
 }

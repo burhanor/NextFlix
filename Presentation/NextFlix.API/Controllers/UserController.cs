@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NextFlix.API.Attributes;
 using NextFlix.API.Extensions;
+using NextFlix.API.Models;
 using NextFlix.Application.Dto.UserDtos;
 using NextFlix.Application.Features.User.Commands.CreateUser;
 using NextFlix.Application.Features.User.Commands.DeleteUser;
 using NextFlix.Application.Features.User.Commands.UpdateUser;
-using NextFlix.Application.Features.User.Queries.UserIsExist;
-using NextFlix.Application.Features.User.Queries.GetUsers;
 using NextFlix.Application.Features.User.Queries.GetUser;
-using NextFlix.Domain.Enums;
+using NextFlix.Application.Features.User.Queries.GetUsers;
+using NextFlix.Application.Features.User.Queries.UserIsExist;
 using NextFlix.Application.Features.User.Queries.UserSlugIsExist;
-using NextFlix.API.Attributes;
 
 namespace NextFlix.API.Controllers
 {
@@ -62,7 +62,7 @@ namespace NextFlix.API.Controllers
 
 
 		[HttpPost]
-		public async Task<IActionResult> CreateUser([FromForm] UserDto model, [FromForm] IFormFile? file)
+		public async Task<IActionResult> CreateUser([FromForm] UserModel model)
 		{
 			CreateUserCommandRequest request = new()
 			{
@@ -73,14 +73,14 @@ namespace NextFlix.API.Controllers
 				IsActive = model.IsActive,
 				UserType = model.UserType,
 
-				AvatarImage = file.ToImageDto(environment.WebRootPath)
+				AvatarImage = model.File.ToImageDto(environment.WebRootPath)
 			};
 			var response = await mediator.Send(request);
 			return this.ToApiResponse(response);
 		}
 
 		[HttpPut("{id}")]
-		public async Task<IActionResult> UpdateUser(int id, [FromForm] UserDto model, [FromForm] IFormFile? file)
+		public async Task<IActionResult> UpdateUser(int id, [FromForm] UserModel model)
 		{
 			UpdateUserCommandRequest request = new()
 			{
@@ -91,7 +91,7 @@ namespace NextFlix.API.Controllers
 				IsActive = model.IsActive,
 				UserType = model.UserType,
 				Id = id,
-				AvatarImage = file.ToImageDto(environment.WebRootPath)
+				AvatarImage = model.File.ToImageDto(environment.WebRootPath)
 			};
 			var response = await mediator.Send(request);
 			return this.ToApiResponse(response);
