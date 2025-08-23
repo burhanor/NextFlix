@@ -2,6 +2,6 @@
 {
 	public interface IFileStorageService
 	{
-		Task<string> SaveFileAsync(Stream content, string fileName, string webRootPath, CancellationToken cancellationToken=default);
+		Task<string> SaveFileAsync(Stream content, string fileName, string webRootPath, string folderName = "", CancellationToken cancellationToken=default);
 	}
 }

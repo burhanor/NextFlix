@@ -22,6 +22,7 @@ namespace NextFlix.Application.Helpers
 				Status = movieDto.Status,
 				UserId = userId,
 				CreatedDate = DateTime.UtcNow,
+				Description=movieDto.Description,
 				PublishDate = movieDto.Status == Domain.Enums.Status.ACCEPTED ? DateTime.UtcNow : null,
 			};
 			if (movieDto.Casts is not null)

@@ -4,6 +4,7 @@ using NextFlix.Application.Abstraction.Enums;
 using NextFlix.Application.Abstraction.Interfaces.RabbitMq;
 using NextFlix.Application.Abstraction.Interfaces.Uow;
 using NextFlix.Application.Interfaces;
+using NextFlix.Application.Models;
 using NextFlix.Domain.Interfaces;
 using NextFlix.Shared.Response;
 
@@ -18,6 +19,7 @@ namespace NextFlix.Application.Bases
 		public async virtual Task<ResponseContainer<Unit>> Handle(TRequest request, CancellationToken cancellationToken)
 		{
 			ResponseContainer<Unit> response = new(ResponseStatus.Deleted,successMessage);
+			List<int> movieIds = await BeforeProcess(request.Ids,cancellationToken);
 			bool beforeDeleteControl = await BeforeDeleteControl(request.Ids, cancellationToken: cancellationToken);
 			if (!beforeDeleteControl)
 			{
@@ -34,6 +36,7 @@ namespace NextFlix.Application.Bases
 					response.Message = successMessage;
 					await RabbitMqService.Publish(queue, RabbitMqRoutingKeys.Deleted, request.Ids, cancellationToken);
 					await AfterDeleteSuccessAsync(request.Ids, cancellationToken);
+					await AfterProcess(movieIds, cancellationToken);
 
 				}
 
@@ -57,8 +60,24 @@ namespace NextFlix.Application.Bases
 			FailMessage = failMessage;
 			return await Task.FromResult(true);
 		}
-		
 
-
+		protected virtual async Task<List<int>> BeforeProcess(List<int> deletedIds, CancellationToken cancellationToken = default)
+		{
+			return [];
+		}
+		protected virtual async Task AfterProcess(List<int> movieIds, CancellationToken cancellationToken = default)
+		{
+			if (movieIds?.Count>0)
+			{
+				foreach (var id in movieIds)
+				{
+					await RabbitMqService.Publish(RabbitMqQueues.Movies, RabbitMqRoutingKeys.Updated, new IdModel
+					{
+						Id = id
+					}, cancellationToken: cancellationToken);
+				}
+			}
+			
+		}
 	}
 }

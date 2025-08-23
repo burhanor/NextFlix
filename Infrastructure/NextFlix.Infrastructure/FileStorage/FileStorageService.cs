@@ -6,9 +6,9 @@ namespace NextFlix.Infrastructure.FileStorage
 	{
 	
 
-		public async Task<string> SaveFileAsync(Stream content, string fileName,string webRootPath,CancellationToken cancellationToken=default)
+		public async Task<string> SaveFileAsync(Stream content, string fileName,string webRootPath,string folderName="",CancellationToken cancellationToken=default)
 		{
-			var folderPath = Path.Combine(webRootPath, "images");
+			var folderPath = Path.Combine(webRootPath, "images",folderName);
 			string newFileName = $"{Guid.NewGuid()}_{fileName}";
 			if (!Directory.Exists(folderPath))
 				Directory.CreateDirectory(folderPath);
@@ -18,7 +18,9 @@ namespace NextFlix.Infrastructure.FileStorage
 			{
 				await content.CopyToAsync(fileStream,cancellationToken);
 			}
-			return $"/images/{newFileName}";
+			if(string.IsNullOrEmpty(folderName))
+				return $"/images/{newFileName}";
+			return $"/images/{folderName}/{newFileName}";
 		}
 	}
 }

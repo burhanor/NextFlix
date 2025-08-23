@@ -46,7 +46,7 @@ namespace NextFlix.Application.Features.Channel.Commands.UpdateChannel
 			Domain.Entities.Channel channel = mapper.Map<Domain.Entities.Channel>(request);
 			if (request.LogoImage != null)
 			{
-				channel.Logo = await fileStorageService.SaveFileAsync(request.LogoImage.Stream, request.LogoImage.FileName, request.LogoImage.WebRootPath, cancellationToken);
+				channel.Logo = await fileStorageService.SaveFileAsync(request.LogoImage.Stream, request.LogoImage.FileName, request.LogoImage.WebRootPath, "channels", cancellationToken);
 			}
 			else
 			{

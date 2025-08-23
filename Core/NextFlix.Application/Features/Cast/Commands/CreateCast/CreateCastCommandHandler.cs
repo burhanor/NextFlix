@@ -51,7 +51,7 @@ namespace NextFlix.Application.Features.Cast.Commands.CreateCast
 			Domain.Entities.Cast cast = mapper.Map<Domain.Entities.Cast>(request);
 			if (request.AvatarImage != null)
 			{
-				cast.Avatar = await fileStorageService.SaveFileAsync(request.AvatarImage.Stream, request.AvatarImage.FileName, request.AvatarImage.WebRootPath, cancellationToken);
+				cast.Avatar = await fileStorageService.SaveFileAsync(request.AvatarImage.Stream, request.AvatarImage.FileName, request.AvatarImage.WebRootPath,"casts", cancellationToken);
 			}
 			await writeRepository.AddAsync(cast, cancellationToken);
 			await uow.SaveChangesAsync(cancellationToken);

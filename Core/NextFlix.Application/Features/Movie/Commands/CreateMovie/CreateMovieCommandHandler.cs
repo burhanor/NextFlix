@@ -37,7 +37,7 @@ namespace NextFlix.Application.Features.Movie.Commands.CreateMovie
 			Domain.Entities.Movie movie = await movieHelper.ToMovieEntity(request);
 			if (request.PosterImage != null)
 			{
-				movie.Poster = await fileStorageService.SaveFileAsync(request.PosterImage.Stream, request.PosterImage.FileName, request.PosterImage.WebRootPath, cancellationToken);
+				movie.Poster = await fileStorageService.SaveFileAsync(request.PosterImage.Stream, request.PosterImage.FileName, request.PosterImage.WebRootPath, "movies", cancellationToken);
 			}
 			await  writeRepository.AddAsync(movie, cancellationToken);
 			await uow.SaveChangesAsync(cancellationToken);

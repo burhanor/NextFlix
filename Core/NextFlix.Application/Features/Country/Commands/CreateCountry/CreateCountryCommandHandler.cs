@@ -37,7 +37,7 @@ namespace NextFlix.Application.Features.Country.Commands.CreateCountry
 			Domain.Entities.Country country = mapper.Map<Domain.Entities.Country>(request);
 			if (request.FlagImage != null)
 			{
-				country.Flag = await fileStorageService.SaveFileAsync(request.FlagImage.Stream,request.FlagImage.FileName,request.FlagImage.WebRootPath,cancellationToken);
+				country.Flag = await fileStorageService.SaveFileAsync(request.FlagImage.Stream,request.FlagImage.FileName,request.FlagImage.WebRootPath, "countries", cancellationToken);
 			}
 			await writeRepository.AddAsync(country,cancellationToken);
 			await uow.SaveChangesAsync(cancellationToken);

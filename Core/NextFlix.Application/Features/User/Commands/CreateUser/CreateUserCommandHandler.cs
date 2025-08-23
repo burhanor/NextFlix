@@ -68,7 +68,7 @@ namespace NextFlix.Application.Features.User.Commands.CreateUser
 			user.Password = PasswordHelper.HashPassword(request.Password);
 			if (request.AvatarImage != null)
 			{
-				user.Avatar = await fileStorageService.SaveFileAsync(request.AvatarImage.Stream, request.AvatarImage.FileName, request.AvatarImage.WebRootPath, cancellationToken);
+				user.Avatar = await fileStorageService.SaveFileAsync(request.AvatarImage.Stream, request.AvatarImage.FileName, request.AvatarImage.WebRootPath, "users", cancellationToken);
 			}
 			await writeRepository.AddAsync(user, cancellationToken);
 			await uow.SaveChangesAsync(cancellationToken);

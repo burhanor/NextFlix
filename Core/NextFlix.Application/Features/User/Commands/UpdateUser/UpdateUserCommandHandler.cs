@@ -91,7 +91,7 @@ namespace NextFlix.Application.Features.User.Commands.UpdateUser
 			}
 			if (request.AvatarImage != null)
 			{
-				user.Avatar = await fileStorageService.SaveFileAsync(request.AvatarImage.Stream, request.AvatarImage.FileName, request.AvatarImage.WebRootPath, cancellationToken);
+				user.Avatar = await fileStorageService.SaveFileAsync(request.AvatarImage.Stream, request.AvatarImage.FileName, request.AvatarImage.WebRootPath, "users", cancellationToken);
 			}
 			else
 			{

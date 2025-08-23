@@ -58,7 +58,7 @@ namespace NextFlix.Application.Features.Movie.Commands.UpdateMovie
 			writeRepository.Update(movie);
 			if (request.PosterImage != null)
 			{
-				movie.Poster = await fileStorageService.SaveFileAsync(request.PosterImage.Stream, request.PosterImage.FileName, request.PosterImage.WebRootPath, cancellationToken);
+				movie.Poster = await fileStorageService.SaveFileAsync(request.PosterImage.Stream, request.PosterImage.FileName, request.PosterImage.WebRootPath, "movies", cancellationToken);
 			}
 			else
 			{

@@ -10,7 +10,7 @@ namespace NextFlix.Application.Dto.MovieDtos
 		public string? Description { get; set; }
 		public int Duration { get; set; }
 		public Status Status { get; set; }
-		public UserDto User { get; set; }
+		public UserResponse User { get; set; }
 		public DateTime CreatedDate { get; set; }
 		public DateTime? PublishDate { get; set; }
 		public string? Poster { get; set; }
