@@ -4,6 +4,8 @@ using NextFlix.Application.Features.Movie.Commands.CreateMovie;
 using NextFlix.Application.Features.Movie.Commands.UpdateMovie;
 using NextFlix.Application.Features.Movie.Queries.GetMovie;
 using NextFlix.Application.Features.Movie.Queries.GetMovieBySlug;
+using NextFlix.Application.Features.Movie.Queries.GetMovies;
+using NextFlix.Shared.Models;
 
 namespace NextFlix.Application.Mappings
 {
@@ -29,6 +31,8 @@ namespace NextFlix.Application.Mappings
 			CreateMap<Domain.Entities.Country, MovieCountryResponse>();
 			CreateMap<Domain.Entities.Source, MovieSourceResponse>();
 			CreateMap<Domain.Entities.MovieTrailer, MovieTrailerDto>();
+
+			CreateMap<GetMoviesQueryRequest, MovieFilterRequest>().ReverseMap();
 		}
 	}
 }

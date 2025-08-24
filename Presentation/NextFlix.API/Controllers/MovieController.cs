@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using NextFlix.API.Attributes;
 using NextFlix.API.Extensions;
 using NextFlix.API.Models;
+using NextFlix.Application.Dto.CategoryDtos;
+using NextFlix.Application.Features.Category.Queries.GetCategories;
 using NextFlix.Application.Features.Movie.Commands.CreateMovie;
 using NextFlix.Application.Features.Movie.Commands.DeleteMovie;
 using NextFlix.Application.Features.Movie.Commands.UpdateMovie;
@@ -12,9 +14,11 @@ using NextFlix.Application.Features.Movie.Commands.VoteMovie;
 using NextFlix.Application.Features.Movie.Commands.WatchMovie;
 using NextFlix.Application.Features.Movie.Queries.GetMovie;
 using NextFlix.Application.Features.Movie.Queries.GetMovieBySlug;
+using NextFlix.Application.Features.Movie.Queries.GetMovies;
 using NextFlix.Application.Features.Movie.Queries.MovieIsExist;
 using NextFlix.Application.Features.Movie.Queries.MovieSlugIsExist;
 using NextFlix.Domain.Enums;
+using NextFlix.Shared.Models;
 
 namespace NextFlix.API.Controllers
 {
@@ -23,6 +27,18 @@ namespace NextFlix.API.Controllers
 	[RequestResponseLog]
 	public class MovieController(IMediator mediator,IMapper mapper,IWebHostEnvironment environment) : ControllerBase
 	{
+
+
+		[HttpGet]
+		public async Task<IActionResult> GetMovies([FromQuery] MovieFilterRequest model)
+		{
+			GetMoviesQueryRequest request = mapper.Map<GetMoviesQueryRequest>(model);
+			var response = await mediator.Send(request);
+			return Ok(response);
+		}
+
+
+
 		[HttpGet("{id:int}")]
 		public async Task<IActionResult> GetMovie(int id)
 		{

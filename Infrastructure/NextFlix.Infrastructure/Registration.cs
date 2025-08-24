@@ -3,10 +3,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using NextFlix.Application.Abstraction.Interfaces.FileStorage;
+using NextFlix.Application.Abstraction.Interfaces.MeiliSearch;
 using NextFlix.Application.Abstraction.Interfaces.RabbitMq;
 using NextFlix.Application.Abstraction.Interfaces.Redis;
 using NextFlix.Application.Abstraction.Interfaces.Token;
 using NextFlix.Infrastructure.FileStorage;
+using NextFlix.Infrastructure.MeiliSearch;
 using NextFlix.Infrastructure.RabbitMq;
 using NextFlix.Infrastructure.Redis;
 using NextFlix.Infrastructure.Token;
@@ -25,6 +27,9 @@ namespace NextFlix.Infrastructure
 			services.Configure<RedisModel>(configuration.GetSection("Redis"));
 			services.AddSingleton<IRedisService, RedisService>();
 
+
+			services.Configure<MeiliSearchModel>(configuration.GetSection("MeiliSearch"));
+			services.AddSingleton<IMeiliSearchService, MeiliSearchService>();
 
 			services.Configure<TokenModel>(configuration.GetSection("JWT"));
 
