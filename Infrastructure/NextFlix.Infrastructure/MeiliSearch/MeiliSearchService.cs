@@ -22,7 +22,7 @@ namespace NextFlix.Infrastructure.MeiliSearch
 		
 
 
-		public async Task<List<int>> SearchMoviesAsync(MovieFilterRequest request)
+		public async Task<MeiliSearchResponse> SearchMoviesAsync(MovieFilterRequest request)
 		{
 
 			var filters = new List<string>();
@@ -71,7 +71,36 @@ namespace NextFlix.Infrastructure.MeiliSearch
 				combinedSearchTerm += $"description:{request.Description}";
 			}
 
+			List<string> sortList = new();
+
+			if (request.OrderType.HasValue)
+			{
+				switch (request.OrderType.Value)
+				{
+					case 0:
+						sortList.Add("rating:desc");
+						break;
+					case 1:
+						sortList.Add("viewCount:desc");
+						break;
+					case 2:
+						sortList.Add("publishDate:desc");
+						break;
+					case 3:
+						sortList.Add("duration:desc");
+						break;
+					default:
+						sortList.Add("publishDate:desc");
+						break;
+				}
+			}
+			else
+			{
+				sortList.Add("publishDate:desc");
+			}
+
 			// MeiliSearch araması
+			string filterQuery = string.Join(" AND ", filters);
 
 			var searchResult = await _index.SearchAsync<Movie>(
 				combinedSearchTerm,
@@ -79,11 +108,15 @@ namespace NextFlix.Infrastructure.MeiliSearch
 				{
 					Limit = request.PageSize ?? 20,
 					Offset = (request.PageNumber - 1) * (request.PageSize ?? 20),
-					AttributesToRetrieve = new List<string> { "id" }
+					AttributesToRetrieve = new List<string> { "id" },
+					Filter = string.IsNullOrWhiteSpace(filterQuery) ? null : filterQuery,
+					Sort= sortList
 				});
-
-
-			return searchResult.Hits.Select(h => h.Id).ToList();
+			var totalCount = ((Meilisearch.SearchResult<NextFlix.Domain.Entities.Movie>)searchResult).EstimatedTotalHits;
+			MeiliSearchResponse response = new MeiliSearchResponse();
+			response.TotalCount =totalCount;
+			response.MovieIds = searchResult.Hits.Select(h => h.Id).ToList();
+			return response;
 		}
 
 	}

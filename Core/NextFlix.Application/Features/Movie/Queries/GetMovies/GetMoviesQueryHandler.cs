@@ -5,11 +5,6 @@ using NextFlix.Application.Abstraction.Interfaces.Uow;
 using NextFlix.Application.Bases;
 using NextFlix.Application.Models;
 using NextFlix.Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NextFlix.Application.Features.Movie.Queries.GetMovies
 {
@@ -17,20 +12,20 @@ namespace NextFlix.Application.Features.Movie.Queries.GetMovies
 	{
 		public async Task<PaginationContainer<GetMoviesQueryResponse>> Handle(GetMoviesQueryRequest request, CancellationToken cancellationToken)
 		{
-			List<int> ids = await meiliSearchService.SearchMoviesAsync(request);
+			MeiliSearchResponse searchResponse = await meiliSearchService.SearchMoviesAsync(request);
 			PaginationContainer<GetMoviesQueryResponse> response = new PaginationContainer<GetMoviesQueryResponse>
 			{
 				Items = new List<GetMoviesQueryResponse>(),
-				PageNumber = 1,
-				PageSize = 10,
-				TotalCount = ids.Count
+				PageNumber = request.PageNumber??1,
+				PageSize = request.PageSize??20,
 			};
-			if (ids?.Count>0)
+			if (searchResponse?.MovieIds?.Count>0)
 			{
-				response.Items = ids.Select(m => new GetMoviesQueryResponse
+				response.Items = searchResponse.MovieIds.Select(m => new GetMoviesQueryResponse
 				{
 					Id = m
 				}).ToList();
+				response.TotalCount = searchResponse.TotalCount;
 			}
 
 			return response;

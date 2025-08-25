@@ -5,5 +5,6 @@
 		MOST_LIKED,
 		MOST_VIEWED,
 		LATEST,
+		DURATION
 	}
 }
