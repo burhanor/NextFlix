@@ -19,6 +19,7 @@ namespace NextFlix.Application.Features.Movie.Queries.GetMovies
 			{
 				PageNumber = request.PageNumber??1,
 				PageSize = request.PageSize??20,
+				TotalCount = searchResponse.TotalCount
 			};
 			if (searchResponse?.MovieIds?.Count>0)
 			{
