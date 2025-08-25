@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using NextFlix.Application.Abstraction.Enums;
+using NextFlix.Application.Abstraction.Interfaces.RabbitMq;
 using NextFlix.Application.Abstraction.Interfaces.Uow;
 using NextFlix.Application.Bases;
 using NextFlix.Application.Constants;
@@ -8,7 +10,7 @@ using NextFlix.Shared.Response;
 
 namespace NextFlix.Application.Features.Movie.Commands.WatchMovie
 {
-	public class WatchMovieCommandHandler(IUow uow, IHttpContextAccessor httpContextAccessor, IMapper mapper) : BaseHandler<Domain.Entities.MovieView>(uow, httpContextAccessor, mapper), IRequestHandler<WatchMovieCommandRequest, ResponseContainer<WatchMovieCommandResponse>>
+	public class WatchMovieCommandHandler(IUow uow, IHttpContextAccessor httpContextAccessor, IMapper mapper,IRabbitMqService rabbitMqService) : BaseHandler<Domain.Entities.MovieView>(uow, httpContextAccessor, mapper), IRequestHandler<WatchMovieCommandRequest, ResponseContainer<WatchMovieCommandResponse>>
 	{
 		public async Task<ResponseContainer<WatchMovieCommandResponse>> Handle(WatchMovieCommandRequest request, CancellationToken cancellationToken)
 		{
@@ -41,6 +43,7 @@ namespace NextFlix.Application.Features.Movie.Commands.WatchMovie
 				response.Status = ResponseStatus.Success;
 				response.Message = MovieMessages.VIEW_SUCCESS;
 				response.Data = new WatchMovieCommandResponse();
+				await rabbitMqService.Publish(RabbitMqQueues.MovieViews, RabbitMqRoutingKeys.Updated, request.MovieId, cancellationToken);
 			}
 			else
 			{

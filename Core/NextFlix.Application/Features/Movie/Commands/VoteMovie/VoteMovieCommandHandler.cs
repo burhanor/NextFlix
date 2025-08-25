@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using NextFlix.Application.Abstraction.Enums;
+using NextFlix.Application.Abstraction.Interfaces.RabbitMq;
 using NextFlix.Application.Abstraction.Interfaces.Uow;
 using NextFlix.Application.Bases;
 using NextFlix.Application.Constants;
@@ -8,7 +10,7 @@ using NextFlix.Shared.Response;
 
 namespace NextFlix.Application.Features.Movie.Commands.VoteMovie
 {
-	public class VoteMovieCommandHandler(IUow uow, IHttpContextAccessor httpContextAccessor, IMapper mapper) : BaseHandler<Domain.Entities.MovieLike>(uow, httpContextAccessor, mapper), IRequestHandler<VoteMovieCommandRequest, ResponseContainer<VoteMovieCommandResponse>>
+	public class VoteMovieCommandHandler(IUow uow, IHttpContextAccessor httpContextAccessor, IMapper mapper,IRabbitMqService rabbitMqService) : BaseHandler<Domain.Entities.MovieLike>(uow, httpContextAccessor, mapper), IRequestHandler<VoteMovieCommandRequest, ResponseContainer<VoteMovieCommandResponse>>
 	{
 		public async Task<ResponseContainer<VoteMovieCommandResponse>> Handle(VoteMovieCommandRequest request, CancellationToken cancellationToken)
 		{
@@ -42,6 +44,7 @@ namespace NextFlix.Application.Features.Movie.Commands.VoteMovie
 				response.Status = ResponseStatus.Success;
 				response.Message = MovieMessages.VOTE_SUCCESS;
 				response.Data = new VoteMovieCommandResponse();
+				await rabbitMqService.Publish(RabbitMqQueues.MovieLikes, RabbitMqRoutingKeys.Updated,request.MovieId, cancellationToken);
 			}
 			else
 			{
