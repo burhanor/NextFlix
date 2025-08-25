@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using NextFlix.Application.Abstraction.Interfaces.Repositories;
 using NextFlix.Application.Abstraction.Interfaces.Uow;
 using NextFlix.Application.Bases;
 using NextFlix.Application.Dto.MovieDtos;
