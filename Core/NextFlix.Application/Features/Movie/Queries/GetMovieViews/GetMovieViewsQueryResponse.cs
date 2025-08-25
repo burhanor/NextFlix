@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NextFlix.Application.Features.Movie.Queries.GetMovieViews
+﻿namespace NextFlix.Application.Features.Movie.Queries.GetMovieViews
 {
-	internal class GetMovieViewsQueryResponse
+	public class GetMovieViewsQueryResponse
 	{
+		public int Count { get; set; }
 	}
 }

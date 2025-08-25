@@ -12,5 +12,7 @@
 		Task<List<T>> GetAllAsync<T>(string hashKey);
 		Task StringSetAsync<T>(string key, T value, TimeSpan? expiry = null);
 		Task HashSetAsync<T>(string hashKey, string id, T value, TimeSpan? expiry = null);
+		Task<List<T>?> HashGetAsync<T>(string hashKey, List<int> ids);
+		Task<T?> HashGetAsync<T>(string hashKey, int id);
 	}
 }

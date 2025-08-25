@@ -32,6 +32,7 @@ namespace NextFlix.Application.Features.Movie.Commands.VoteMovie
 				MovieId = request.MovieId,
 				IpAddress = ipAddress,
 				VoteDate = DateTime.UtcNow,
+				Vote=request.Vote
 				
 			};
 			await writeRepository.AddAsync(movieLike, cancellationToken);

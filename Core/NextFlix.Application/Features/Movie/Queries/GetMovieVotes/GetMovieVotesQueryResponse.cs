@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NextFlix.Domain.Enums;
 
 namespace NextFlix.Application.Features.Movie.Queries.GetMovieVotes
 {
-	internal class GetMovieVotesQueryResponse
+	public class GetMovieVotesQueryResponse
 	{
+		public VoteType Vote { get; set; }
+		public int VoteCount { get; set; }
 	}
 }

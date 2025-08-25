@@ -114,7 +114,7 @@ namespace NextFlix.Infrastructure.MeiliSearch
 				});
 			var totalCount = ((Meilisearch.SearchResult<NextFlix.Domain.Entities.Movie>)searchResult).EstimatedTotalHits;
 			MeiliSearchResponse response = new MeiliSearchResponse();
-			response.TotalCount =totalCount;
+			response.TotalCount = totalCount;
 			response.MovieIds = searchResult.Hits.Select(h => h.Id).ToList();
 			return response;
 		}

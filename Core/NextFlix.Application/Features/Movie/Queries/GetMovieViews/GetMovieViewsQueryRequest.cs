@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace NextFlix.Application.Features.Movie.Queries.GetMovieViews
 {
-	internal class GetMovieViewsQueryRequest
+	public class GetMovieViewsQueryRequest(int movieId) : IRequest<GetMovieViewsQueryResponse>
 	{
+		public int MovieId { get; set; } = movieId;
 	}
 }

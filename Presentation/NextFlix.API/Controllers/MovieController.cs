@@ -15,6 +15,8 @@ using NextFlix.Application.Features.Movie.Commands.WatchMovie;
 using NextFlix.Application.Features.Movie.Queries.GetMovie;
 using NextFlix.Application.Features.Movie.Queries.GetMovieBySlug;
 using NextFlix.Application.Features.Movie.Queries.GetMovies;
+using NextFlix.Application.Features.Movie.Queries.GetMovieViews;
+using NextFlix.Application.Features.Movie.Queries.GetMovieVotes;
 using NextFlix.Application.Features.Movie.Queries.MovieIsExist;
 using NextFlix.Application.Features.Movie.Queries.MovieSlugIsExist;
 using NextFlix.Domain.Enums;
@@ -127,6 +129,23 @@ namespace NextFlix.API.Controllers
 			WatchMovieCommandRequest request = new(id);
 			var response = await mediator.Send(request);
 			return this.ToApiResponse(response);
+		}
+
+
+		[HttpGet("{id}/views")]
+		public async Task<IActionResult> GetViewCount(int id)
+		{
+			GetMovieViewsQueryRequest request = new(id);
+			var response = await mediator.Send(request);
+			return Ok(response);
+		}
+
+		[HttpGet("{id}/votes")]
+		public async Task<IActionResult> GetVotes(int id)
+		{
+			GetMovieVotesQueryRequest request = new(id);
+			var response = await mediator.Send(request);
+			return Ok(response);
 		}
 
 	}

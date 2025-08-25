@@ -100,5 +100,26 @@ namespace NextFlix.Infrastructure.Redis
 			}
 		}
 
+		public async Task<T?> HashGetAsync<T>(string hashKey,int id)
+		{
+			var json = await _db.HashGetAsync(hashKey, id.ToString());
+			if (json.IsNullOrEmpty)
+				return default;
+			return JsonSerializer.Deserialize<T>(json);
+
+		}
+
+		public async Task<List<T>?> HashGetAsync<T>(string hashKey,List<int> ids)
+		{
+			var redisValues = ids.Select(id => (RedisValue)id.ToString()).ToArray();
+			var results = await _db.HashGetAsync(hashKey, redisValues);
+			return results
+				.Where(rv => !rv.IsNullOrEmpty)
+				.Select(rv => JsonSerializer.Deserialize<T>(rv))
+				.Where(x => x != null)
+				.Select(x => x!)
+				.ToList();
+		}
+
 	}
 }

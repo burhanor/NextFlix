@@ -133,7 +133,7 @@ namespace NextFlix.Application.Helpers
 			movie.Tags = await GetMovieTags(movie.Id);
 			movie.Trailers = await GetMovieTrailers(movie.Id);
 			movie.ViewCount = await GetMovieViews(movie.Id);
-			movie.Votes = GetMovieVotes(movie.Id);
+			movie.Votes = await GetMovieVotes(movie.Id);
 			return movie;
 		}
 
@@ -293,13 +293,13 @@ namespace NextFlix.Application.Helpers
 			return response;
 		}
 
-		private async Task<int> GetMovieViews(int movieId, CancellationToken cancellationToken = default)
+		public async Task<int> GetMovieViews(int movieId, CancellationToken cancellationToken = default)
 		{
 			return await uow.GetReadRepository<Domain.Entities.MovieView>()
 				.CountAsync(m => m.MovieId == movieId, cancellationToken);
 		}
 
-		private List<MovieVoteResponse>? GetMovieVotes(int movieId, CancellationToken cancellationToken = default)
+		public async Task<List<MovieVoteResponse>?> GetMovieVotes(int movieId, CancellationToken cancellationToken = default)
 		{
 			IReadRepository<Domain.Entities.MovieLike> movieLikeRepository = uow.GetReadRepository<Domain.Entities.MovieLike>();
 
@@ -309,9 +309,9 @@ namespace NextFlix.Application.Helpers
 				VoteCount = m.Count()
 			});
 			List<MovieVoteResponse>? datas = query.ToList();
-			if (datas == null || datas.Count == 0)
+			if (datas.Count == 0)
 				return null;
-
+			await Task.CompletedTask;
 			return datas;
 		}
 
